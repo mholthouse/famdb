@@ -306,6 +306,26 @@ def printChildren(db,rdb,clist):
         s += ")  M:"+rdb[int(c)][5]+"   F:"+rdb[int(c)][6]+"\n"
     return s
 
+def inserted(s1,s2):
+    if len(s1)>len(s2):
+        big = s1
+        small = s2
+    else:
+        big = s2
+        small = s1
+    for i in range(len(small)):
+        if big[i] != small[i]:
+            break
+    jb = len(big)-1
+    js = len(small)-1
+    while js >= i:
+        if big[jb] != s2[js]:
+            break
+        jb -= 1
+        js -= 1
+    return small[i:js+1],big[i:jb+1]
+
+
 def diffLists(s1,s2):
     diffs = [0,0,0,0,0,0,0,0,0]
     diffword = ''
@@ -778,7 +798,7 @@ f4.close()
 ##writeDB(db,fdb)   
 
 db,fdb=readDB()
-createPass2(db,fdb,rdb)
+#createPass2(db,fdb,rdb)
 checkRNChildren(db,fdb,rdb)
 
 
@@ -811,25 +831,6 @@ def preprocessRootsDB():
     f5.close()
 
     return rdb,raw
-
-def inserted(s1,s2):
-    if len(s1)>len(s2):
-        big = s1
-        small = s2
-    else:
-        big = s2
-        small = s1
-    for i in range(len(small)):
-        if big[i] != small[i]:
-            break
-    jb = len(big)-1
-    js = len(small)-1
-    while js >= i:
-        if big[jb] != s2[js]:
-            break
-        jb -= 1
-        js -= 1
-    return small[i:js+1],big[i:jb+1]
 
 
 
